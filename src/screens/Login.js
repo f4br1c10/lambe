@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     TextInput
 } from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 export default class Login extends Component {
     state = {
@@ -20,19 +21,22 @@ export default class Login extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <Text style={{fontSize: 20, fontWeight: 'bold'}}>Sign in</Text>
                 <TextInput placeholder='Email' style={styles.input} 
                     autoFocus={true} keyboardType='email-address' 
                     value={this.state.email}
                     onChangeText={email => this.setState({ email })} />
-                <TextInput placeholder='Senha' style={styles.input} 
+                <TextInput placeholder='Password' style={styles.input} 
                     secureTextEntry={true}
                     value={this.state.password}
                     onChangeText={password => this.setState({ password })} />
                 <TouchableOpacity onPress={this.login} style={styles.buttom}>
-                    <Text style={styles.buttomText}>Login</Text>
+                    <Text style={styles.buttomText}>Sign in</Text>
                 </TouchableOpacity>    
-                <TouchableOpacity onPress={() => {}} style={styles.buttom}>
-                    <Text style={styles.buttomText}>Criar nova conta...</Text>
+                <TouchableOpacity onPress={() => {
+                    this.props.navigation.navigate('Sign up')
+                }} style={styles.buttom}>
+                    <Text style={styles.buttomText}>Create your account...</Text>
                 </TouchableOpacity>   
             </View>
         )
@@ -62,6 +66,7 @@ const styles = StyleSheet.create({
         height: 40,
         borderWidth: 1,
         borderColor: '#333',
-        borderRadius: 5
+        borderRadius: 5,
+        paddingLeft: 15
     }
 })

@@ -15,7 +15,7 @@ export default class Profile extends Component {
                 <Text style={styles.nickname}>Fulano de Tal</Text>
                 <Text style={styles.email}>fulanodetal@gmail.com</Text>
                 <TouchableOpacity onPress={this.logout} style={styles.button}>
-                    <Text style={styles.buttomText}>Sair</Text>
+                    <Text style={styles.buttomText}>Logout</Text>
                 </TouchableOpacity>
             </View>
         )
