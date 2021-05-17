@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { addPost } from '../store/actions/posts'
 import {
     View,
     Text,
@@ -9,7 +11,6 @@ import {
     Dimensions,
     Platform,
     ScrollView,
-    Alert
 } from 'react-native'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 
@@ -18,7 +19,7 @@ class AddPhoto extends Component {
         image: null,
         comment: '',
     }
-     
+
     pickImage = () => {
         launchCamera({
             maxHeight: 600,
@@ -31,7 +32,19 @@ class AddPhoto extends Component {
     }
 
     save = async () => {
-        Alert.alert('Imagem adicionada!', this.state.comment)
+        this.props.onAddPost({
+            id: Math.random(),
+            nickname: this.props.name,
+            email: this.props.email,
+            image: this.props.image,
+            comments: [{
+                nickname: this.props.name,
+                comment: ` ${this.state.comment}`
+            }]
+        })
+
+        this.setState({ image: null, comment: '' })
+        this.props.navigation.navigate('Feed')
     }
 
     render() {
@@ -45,14 +58,14 @@ class AddPhoto extends Component {
                     <TouchableOpacity onPress={this.pickImage} style={styles.button}>
                         <Text style={styles.buttonText}>Escolha a foto</Text>
                     </TouchableOpacity>
-                    <TextInput 
+                    <TextInput
                         placeholder='Algum comentário para a foto?'
-                        style={styles.input} 
+                        style={styles.input}
                         value={this.state.comment}
                         onChangeText={comment => this.setState({ comment })} />
-                     <TouchableOpacity onPress={this.save} style={styles.button}>
+                    <TouchableOpacity onPress={this.save} style={styles.button}>
                         <Text style={styles.buttonText}>Salvar</Text>
-                     </TouchableOpacity>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
         )
@@ -63,13 +76,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-    }, 
+    },
     title: {
         fontSize: 20,
         marginTop: Platform.OS === 'ios' ? 30 : 10,
         fontWeight: 'bold'
     },
-    imageContainer: {   
+    imageContainer: {
         width: '90%',
         height: Dimensions.get('window').width / 2,
         backgroundColor: '#eee',
@@ -98,4 +111,18 @@ const styles = StyleSheet.create({
     }
 })
 
-export default AddPhoto
+const mapStateToProps = ({ user }) => {
+    return {
+        email: user.email,
+        name: user.name
+    }
+}
+
+const mapDispatchToProps = dispatchEvent => {
+    return {
+        onAddPost: post => dispatchEvent(addPost(post))
+    }
+}
+
+// export default AddPhoto
+export default connect(mapStateToProps, mapDispatchToProps)(AddPhoto)
