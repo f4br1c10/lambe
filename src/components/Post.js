@@ -7,13 +7,13 @@ import AddComment from './AddComment'
 
 class Post extends Component {
     render() {
-        return(
+        return (
             <View style={styles.container}>
                 <Image source={this.props.image} style={styles.image} />
-                <Author email={this.props.email} 
+                <Author email={this.props.email}
                     nickname={this.props.nickname} />
                 <Comments comments={this.props.comments} />
-                <AddComment />
+                <AddComment postId={this.props.id} />
             </View>
         )
     }
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').width * 3/4,
+        height: Dimensions.get('window').width * 3 / 4,
         resizeMode: 'contain',
     }
 })

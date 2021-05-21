@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { addPost } from '../store/actions/posts'
 import {
     View,
@@ -23,7 +23,8 @@ class AddPhoto extends Component {
     pickImage = () => {
         launchCamera({
             maxHeight: 600,
-            maxWidth: 800
+            maxWidth: 800,
+            cameraType: 'back'
         }, res => {
             if (!res.didCancel) {
                 this.setState({ image: { uri: res.uri, base64: res.data } })
@@ -36,7 +37,7 @@ class AddPhoto extends Component {
             id: Math.random(),
             nickname: this.props.name,
             email: this.props.email,
-            image: this.props.image,
+            image: this.state.image,
             comments: [{
                 nickname: this.props.name,
                 comment: ` ${this.state.comment}`
@@ -118,9 +119,9 @@ const mapStateToProps = ({ user }) => {
     }
 }
 
-const mapDispatchToProps = dispatchEvent => {
+const mapDispatchToProps = dispatch => {
     return {
-        onAddPost: post => dispatchEvent(addPost(post))
+        onAddPost: post => dispatch(addPost(post))
     }
 }
 
