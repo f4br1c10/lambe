@@ -35,7 +35,7 @@ class AddComment extends Component {
         if (this.state.editMode) {
             commentArea = (
                 <View style={styles.container}>
-                    <TextInput placeholder='Pode comentar...'
+                    <TextInput placeholder='You can comment...'
                         style={styles.input} autoFocus={true}
                         value={this.state.comment}
                         onChangeText={comment => this.setState({ comment })}
@@ -51,7 +51,7 @@ class AddComment extends Component {
                     <View style={styles.container}>
                         <Icon name='comment-o' size={25} color='#555' />
                         <Text style={styles.caption}>
-                            Adicione um comentário...
+                            Add a comment...
                         </Text>
                     </View>
                 </TWF>
