@@ -7,7 +7,7 @@ import { name as appName } from './app.json';
 import storeConfig from './src/store/storeConfig'
 
 import axios from 'axios'
-axios.defaults.baseURL = 'https://lambe-70918-default-rtdb.firebaseio.com/'
+axios.defaults.baseURL = 'https://lambe-a423c-default-rtdb.firebaseio.com/'
 
 const store = storeConfig()
 const Redux = () => {
