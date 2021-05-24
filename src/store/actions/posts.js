@@ -1,11 +1,20 @@
-import { SET_POSTS, ADD_COMMENT } from './actionTypes'
+import {
+    SET_POSTS,
+    ADD_COMMENT,
+    CREATING_POST,
+    POST_CREATED
+} from './actionTypes'
 import axios from 'axios'
 
 export const addPost = post => {
     return dispatch => {
+        dispatch(creatingPost())
         axios.post('/posts.json', { ...post })
             .catch(err => console.log(err))
-            .then(res => console.log(res.data))
+            .then(res => {
+                dispatch(fetchPosts())
+                dispatch(postCreated())
+            })
     }
 }
 
@@ -36,7 +45,19 @@ export const fetchPosts = () => {
                         id: key
                     })
                 }
-                dispatch(setPosts(posts))
+                dispatch(setPosts(posts.reverse()))
             })
+    }
+}
+
+export const creatingPost = () => {
+    return {
+        type: CREATING_POST
+    }
+}
+
+export const postCreated = () => {
+    return {
+        type: POST_CREATED
     }
 }
