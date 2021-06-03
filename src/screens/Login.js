@@ -68,20 +68,6 @@ class Login extends Component {
 
 }
 
-const mapStateToProps = ({ user }) => {
-    return {
-        isLoading: user.isLoading
-    }
-}
-
-const mapDispatchToProps = dispatchEvent => {
-    return {
-        onLogin: user => dispatchEvent(login(user))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -109,3 +95,17 @@ const styles = StyleSheet.create({
         paddingLeft: 15
     }
 })
+
+const mapStateToProps = ({ user }) => {
+    return {
+        isLoading: user.isLoading
+    }
+}
+
+const mapDispatchToProps = dispatchEvent => {
+    return {
+        onLogin: user => dispatchEvent(login(user))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
